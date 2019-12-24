@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deployPrefix": {
+            "value": "-dev-"
+        },
+        "keyVaultName": {
+          "value": "space-game-kv-10658"
+        },
+        "uniqueSuffix": {
+            "value": "10658"
+        },
+        "adminPassword": {
+            "reference": {
+              "keyVault": {
+                "id": "/subscriptions/d7a467d8-81e5-493d-89ba-8c5ba0aa5f1d/resourceGroups/Space-Game-rg/providers/Microsoft.KeyVault/vaults/space-game-kv-10658"
+              },
+              "secretName": "adminPassword"
+            }
+        },
+        "firstRun": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/d7a467d8-81e5-493d-89ba-8c5ba0aa5f1d/resourceGroups/Space-Game-rg/providers/Microsoft.KeyVault/vaults/space-game-kv-10658"
+                },
+                "secretName": "firstRun"
+            }
+        }
+    }
+}
