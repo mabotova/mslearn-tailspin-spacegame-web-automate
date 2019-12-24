@@ -3,15 +3,15 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serverfarms_tailspin_space_game_asp_name": {
-            "defaultValue": "tailspin-space-game-asp",
+            "defaultValue": "space-game-asp",
             "type": "String"
         },
         "servers_tailspin_space_game_sql_name": {
-            "defaultValue": "tailspin-space-game-sql",
+            "defaultValue": "space-game-sql",
             "type": "String"
         },
         "sites_tailspin_space_game_web_name": {
-            "defaultValue": "tailspin-space-game-web",
+            "defaultValue": "space-game-web",
             "type": "String"
         },
         "location": {
@@ -105,23 +105,25 @@
                 "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
                 "zoneRedundant": false
             },
-            "resources": [{
-                "name": "Import",
-                "type": "extensions",
-                "apiVersion": "2014-04-01",
-                "condition": "[equals(parameters('firstRun'), 'true')]",
-                "dependsOn": [
-                    "[resourceId('Microsoft.Sql/servers/databases', concat(parameters('servers_tailspin_space_game_sql_name'), variables('uniqueName')), 'tailspindatabase')]"
-                ],
-                "properties": {
-                    "storageKeyType": "SharedAccessKey",
-                    "storageKey": "?",
-                    "storageUri": "https://sqldbtutorial.blob.core.windows.net/bacpacs/tailspindatabase.bacpac",
-                    "administratorLogin": "azuresql",
-                    "administratorLoginPassword": "[parameters('adminPassword')]",
-                    "operationMode": "Import"
+            "resources": [
+                {
+                    "name": "Import",
+                    "type": "extensions",
+                    "apiVersion": "2014-04-01",
+                    "condition": "[equals(parameters('firstRun'), 'true')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers/databases', concat(parameters('servers_tailspin_space_game_sql_name'), variables('uniqueName')), 'tailspindatabase')]"
+                    ],
+                    "properties": {
+                        "storageKeyType": "SharedAccessKey",
+                        "storageKey": "?",
+                        "storageUri": "https://sqldbtutorial.blob.core.windows.net/bacpacs/tailspindatabase.bacpac",
+                        "administratorLogin": "azuresql",
+                        "administratorLoginPassword": "[parameters('adminPassword')]",
+                        "operationMode": "Import"
+                    }
                 }
-            }]
+            ]
         },
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
@@ -201,11 +203,11 @@
                     "index.php",
                     "hostingstart.html"
                 ],
-                 "connectionStrings": [
+                "connectionStrings": [
                     {
-                    "name": "DefaultConnection",
-                    "connectionString": "[concat('Server=tcp:',reference(concat(parameters('servers_tailspin_space_game_sql_name'), variables('uniqueName'))).fullyQualifiedDomainName,',1433;Initial Catalog=tailspindatabase;Persist Security Info=False;User ID=',reference(concat(parameters('servers_tailspin_space_game_sql_name'), variables('uniqueName'))).administratorLogin,';Password=',parameters('adminPassword'),';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]",
-                    "type": "SQLAzure"
+                        "name": "DefaultConnection",
+                        "connectionString": "[concat('Server=tcp:',reference(concat(parameters('servers_tailspin_space_game_sql_name'), variables('uniqueName'))).fullyQualifiedDomainName,',1433;Initial Catalog=tailspindatabase;Persist Security Info=False;User ID=',reference(concat(parameters('servers_tailspin_space_game_sql_name'), variables('uniqueName'))).administratorLogin,';Password=',parameters('adminPassword'),';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]",
+                        "type": "SQLAzure"
                     }
                 ],
                 "netFrameworkVersion": "v4.0",
